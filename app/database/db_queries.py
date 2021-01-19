@@ -1,4 +1,5 @@
 import sys
+import os
 from tkinter.messagebox import showerror
 
 import mysql.connector
@@ -14,6 +15,33 @@ class DbQueries:
     _connection = None
     _cursor = None
 
+    _host = None
+    _user = None
+    _password = None
+    _db = None
+
+    dir_name = os.path.dirname(__file__)
+    filename = os.path.join(dir_name, 'db_config.txt')
+    with open(filename, 'r') as db_config:
+        for line in db_config.readlines():
+            split_line = line.split('=')
+            if len(split_line) != 2:
+                continue
+            label = split_line[0].strip()
+            value = split_line[1].strip()
+            if label == 'host':
+                _host = value
+            elif label == 'user':
+                _user = value
+            elif label == 'password':
+                _password = value
+            elif label == 'db':
+                _db = value
+        print(_host, _user, _password, _db)
+        if _host is None or _user is None or _password is None or _db is None:
+            showerror('Database error', "Invalid database connection configuration file")
+            sys.exit(0)
+
     @staticmethod
     def _execute_dml(query, parameters=None):
         DbQueries._connect()
@@ -27,8 +55,8 @@ class DbQueries:
     @staticmethod
     def _connect():
         try:
-            DbQueries._connection = mysql.connector.connect(host='192.168.1.100', user='js-project-app',
-                                                            password='js-project-app333221$$', db='js-project')
+            DbQueries._connection = mysql.connector.connect(host=DbQueries._host, user=DbQueries._user,
+                                                            password=DbQueries._password, db=DbQueries._db)
             DbQueries._cursor = DbQueries._connection.cursor(buffered=True)
         except InterfaceError:
             showerror('Database error', "Couldn't connect with database")

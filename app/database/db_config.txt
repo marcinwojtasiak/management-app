@@ -1,0 +1,4 @@
+host=192.168.1.100
+user=js-project-app
+password=js-project-app333221$$
+db=js-project
