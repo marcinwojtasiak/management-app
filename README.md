@@ -32,6 +32,7 @@ Performing CRUD operations on tasks data and assign workers to them.
 Performing CRUD operations on transactions data.
 
 <img src="./images/admin_trans.png">
+
 ### Worker view
 A worker can see tasks that have been assigned to them and update theirs status and add notes to them.
 
