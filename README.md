@@ -8,7 +8,9 @@ The system consists of a desktop app with a GUI written in Python and a MySQL da
 ### User accounts
 Every user has either an admin or a worker account, which they use to login to the system.
 <img src="./images/login.png">
+
 Each user can change their password.
+
 <img src="./images/pass_change.png">
 
 ### Admin view
